@@ -1,0 +1,15 @@
+# Maven
+target/
+*.jar
+*.war
+pom.xml.versionsBackup
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -3,20 +3,18 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class App {
     public static void main(String[] args) {
-        ApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext(AppConfig.class);
-        HelloWorld bean =
-                (HelloWorld) applicationContext.getBean("helloworld");
-        System.out.println(bean.getMessage());
+        try (AnnotationConfigApplicationContext context =
+                     new AnnotationConfigApplicationContext(AppConfig.class)) {
 
-        HelloWorld bean2 = (HelloWorld) applicationContext.getBean("helloworld");
+            HelloWorld bean1 = (HelloWorld) context.getBean("helloworld");
+            System.out.println(bean1.getMessage());
 
-        System.out.println ("bean == bean2:" + (bean == bean2));
+            HelloWorld bean2 = (HelloWorld) context.getBean("helloworld");
+            Cat cat1 = (Cat) context.getBean("cat");
+            Cat cat2 = (Cat) context.getBean("cat");
 
-        Cat cat1 = (Cat) applicationContext.getBean("cat");
-        Cat cat2 = (Cat) applicationContext.getBean("cat");
-
-        System.out.println ("cat1 == cat2:" + (cat1 == cat2));
-        ((AnnotationConfigApplicationContext) applicationContext).close();
+            System.out.println("HelloWorld singleton (bean1 == bean2): " + (bean1 == bean2));
+            System.out.println("Cat prototype (cat1 == cat2): " + (cat1 == cat2));
+        }
     }
 }

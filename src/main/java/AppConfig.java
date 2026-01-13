@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 
 @Configuration
 public class AppConfig {
+
+    public static final String PROTOTYPE_SCOPE = "prototype";
  
     @Bean(name="helloworld")
     public HelloWorld getHelloWorld() {
@@ -13,9 +15,8 @@ public class AppConfig {
     }
 
     @Bean(name="cat")
-    @Scope("prototype")
+    @Scope(AppConfig.PROTOTYPE_SCOPE)
     public Cat getCat() {
         return new Cat();
     }
-
 }
